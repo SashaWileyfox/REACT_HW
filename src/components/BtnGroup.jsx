@@ -18,7 +18,7 @@ class BtnGroup extends React.Component {
   render() {
     const {active} = this.state;
     return (
-      <div className="btn-group" role="group">
+      <div className="btn-group p-5" role="group">
         <button type="button" className={classNames({'active': active === 'Left'}, 'btn btn-primary')}
                 onClick={this.handleClick}>Left
         </button>
