@@ -1,20 +1,17 @@
 import React from "react";
-import classNames from "classnames";
 
 class ListGroup extends React.Component {
   render() {
-    const { children } = this.props;
-    const listItem = React.Children.map(children, child => {
-      if (React.isValidElement(child)){
-        return React.cloneElement(child, {
-          className: classNames(child.props.className, 'list-group-item')
-        })
-      }
-      return child;
-    })
+    const {children} = this.props;
     return (
       <ul className="list-group">
-        {listItem}
+        {React.Children.map(children, (child, index) => {
+          if (React.isValidElement(child)) {
+            return <li className="list-group-item" key={index}>
+              {child}
+            </li>
+          }
+        })}
       </ul>
     )
   }
