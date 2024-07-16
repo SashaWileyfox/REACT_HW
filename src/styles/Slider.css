@@ -1,9 +1,9 @@
 .carousel-container {
-    max-height: 80vh;
+    max-height: 100vh;
     overflow: hidden;
 }
 
 .img-bordered {
     object-fit: cover;
-    max-height: 80vh;
+    max-height: 100vh;
 }
