@@ -39,6 +39,7 @@ class TodoBox extends React.Component {
     return (
       <div className="container p-3">
         <div className="mb-3">
+          <h1 className="fs-2">To Do List</h1>
           <form className="d-flex" onSubmit={this.handleAdd}>
             <div className="me-3">
               <input
@@ -46,7 +47,7 @@ class TodoBox extends React.Component {
                 value={this.state.inputVal}
                 required
                 className="form-control"
-                placeholder="I am going..."
+                placeholder="task"
                 onChange={this.handleChange}/>
             </div>
             <button type="submit" className="btn btn-primary">add</button>
