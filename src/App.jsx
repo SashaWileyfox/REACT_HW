@@ -1,8 +1,8 @@
-import Log from "./components/LogComponent.jsx";
+import LogComponent from "./components/LogComponent.jsx";
 function App(){
   return (
     <div className="App">
-      <Log/>
+      <LogComponent/>
     </div>
   )
 }
