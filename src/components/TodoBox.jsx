@@ -1,5 +1,6 @@
 import React from "react";
 import Item from "./Item.jsx";
+import { v4 as uuidv4 } from 'uuid';
 
 class TodoBox extends React.Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class TodoBox extends React.Component {
   }
 
   handleChange = (event) => {
-    this.setState({inputVal: event.target.value})
+    this.setState({inputVal: event.target.value});
   }
 
   handleAdd = (event) => {
@@ -19,10 +20,7 @@ class TodoBox extends React.Component {
     const { inputVal, tasks } = this.state;
     if (inputVal.trim() === "") return;
 
-    const newTask = {
-      id: Date.now(),
-      text: inputVal,
-    };
+    const newTask = { id: uuidv4(), text: inputVal };
 
     this.setState({
       tasks: [newTask, ...tasks],
@@ -40,19 +38,18 @@ class TodoBox extends React.Component {
   render() {
     return (
       <div className="container p-3">
-        <h1 className="mb-4 fs-2">To Do List</h1>
         <div className="mb-3">
-          <form className="d-flex">
+          <form className="d-flex" onSubmit={this.handleAdd}>
             <div className="me-3">
               <input
                 type="text"
                 value={this.state.inputVal}
-                required=""
+                required
                 className="form-control"
-                placeholder="Task"
+                placeholder="I am going..."
                 onChange={this.handleChange}/>
             </div>
-            <button type="submit" className="btn btn-primary" onClick={this.handleAdd}>add</button>
+            <button type="submit" className="btn btn-primary">add</button>
           </form>
         </div>
         <ul className="list-group">
@@ -65,7 +62,7 @@ class TodoBox extends React.Component {
           ))}
         </ul>
       </div>
-    )
+    );
   }
 }
 
