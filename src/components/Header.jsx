@@ -4,11 +4,10 @@ class Header extends React.Component {
   render() {
     return (
       <div className="modal-header">
-        <div className="modal-title">{this.props.children}</div>
-        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close">
-        </button>
+        <h5 className="modal-title">{this.props.children}</h5>
+        <button type="button" className="btn-close" aria-label="Close" onClick={this.props.onClose}></button>
       </div>
-    )
+    );
   }
 }
 

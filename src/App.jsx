@@ -1,11 +1,11 @@
 import ModalComponent from "./components/ModalComponent.jsx";
 
-function App(){
+function App() {
   return (
     <div className="App">
-      <ModalComponent/>
+      <ModalComponent />
     </div>
-  )
+  );
 }
 
 export default App;
