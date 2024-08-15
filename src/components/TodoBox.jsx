@@ -1,70 +1,100 @@
-import React from "react";
-import Item from "./Item.jsx";
-import { v4 as uuidv4 } from 'uuid';
+import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import "../styles/style.css";
+const TodoBox = () => {
+  const [inputTitle, setInputTitle] = useState("");
+  const [inputDescription, setInputDescription] = useState("");
+  const [tasks, setTasks] = useState([]);
 
-class TodoBox extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      inputVal: '',
-      tasks: [],
+  const handleTitleChange = (e) => {
+    setInputTitle(e.target.value);
+  };
+
+  const handleDescriptionChange = (e) => {
+    setInputDescription(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!inputTitle.trim() || !inputDescription.trim()) return;
+
+    const newTask = {
+      id: uuidv4(),
+      title: inputTitle,
+      description: inputDescription,
     };
-  }
 
-  handleChange = (event) => {
-    this.setState({inputVal: event.target.value});
-  }
+    setTasks((prevTasks) => [newTask, ...prevTasks]);
+    setInputTitle("");
+    setInputDescription("");
+  };
 
-  handleAdd = (event) => {
-    event.preventDefault();
-    const { inputVal, tasks } = this.state;
-    if (inputVal.trim() === "") return;
+  const handleRemove = (id) => {
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+  };
 
-    const newTask = { id: uuidv4(), text: inputVal };
+  return (
+    <div>
+      <h1 className="text-center mt-5 mb-5">TODO LIST</h1>
+      <div className="container">
+        <div className="row">
+          <div className="col-4">
+            <form id="todoForm" onSubmit={handleSubmit}>
+              <div className="mb-3">
+                <label className="form-label">Task title</label>
+                <input
+                  type="text"
+                  name="title"
+                  className="form-control"
+                  value={inputTitle}
+                  onChange={handleTitleChange}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <label className="form-label">Task body</label>
+                <textarea
+                  name="description"
+                  className="form-control"
+                  placeholder="Task body"
+                  cols="30"
+                  rows="10"
+                  value={inputDescription}
+                  onChange={handleDescriptionChange}
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" className="btn btn-primary">
+                Submit
+              </button>
+            </form>
+          </div>
 
-    this.setState({
-      tasks: [newTask, ...tasks],
-      inputVal: "",
-    });
-  }
-
-  handleRemove = (id) => {
-    this.setState((prevState) => {
-      const newTasks = prevState.tasks.filter(task => task.id !== id);
-      return { tasks: newTasks };
-    });
-  }
-
-  render() {
-    return (
-      <div className="container p-3">
-        <div className="mb-3">
-          <h1 className="fs-2">To Do List</h1>
-          <form className="d-flex" onSubmit={this.handleAdd}>
-            <div className="me-3">
-              <input
-                type="text"
-                value={this.state.inputVal}
-                required
-                className="form-control"
-                placeholder="task"
-                onChange={this.handleChange}/>
+          <div className="col-8">
+            <div className="row" id="todoItems">
+              {tasks.map((task, index) => (
+                <div className="col-4" key={task.id}>
+                  <div className="taskWrapper">
+                    <div className="taskHeading">
+                      <span>#{index + 1} </span>
+                      {task.title}
+                    </div>
+                    <div className="taskDescription">{task.description}</div>
+                    <button
+                      className="btn btn-danger btn-sm mt-2"
+                      onClick={() => handleRemove(task.id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))}
             </div>
-            <button type="submit" className="btn btn-primary">add</button>
-          </form>
+          </div>
         </div>
-        <ul className="list-group">
-          {this.state.tasks.map((task) => (
-            <Item
-              key={task.id}
-              task={task}
-              onRemove={() => this.handleRemove(task.id)}
-            />
-          ))}
-        </ul>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default TodoBox;
