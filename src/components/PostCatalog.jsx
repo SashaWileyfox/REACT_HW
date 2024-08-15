@@ -28,7 +28,7 @@ class PostCatalog extends React.Component {
     const {posts, loading} = this.state;
 
     if (loading) {
-      return <p>Loading...</p>;
+      return <p className='fs-1'>Loading...</p>;
     }
 
     return (
